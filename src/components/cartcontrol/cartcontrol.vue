@@ -76,6 +76,7 @@ export default {
     line-height 24px
     text-align center
     padding 6px 0
+    width 15px
   .cart-add
     display inline-block
     vertical-align top
