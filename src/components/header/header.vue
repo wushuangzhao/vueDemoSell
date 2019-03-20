@@ -27,7 +27,9 @@
   </div>
   <div class="bulletin-wrapper" @click="showDetails()">
     <span class="bulletin-title"></span>
-    <span class="bulletin-text">{{seller.bulletin}}</span>
+    <p class="bulletin-box">
+      <span class="bulletin-text">{{seller.bulletin}}</span>
+    </p>
     <i class="icon-keyboard_arrow_right"></i>
   </div>
   <div class="background">
@@ -197,29 +199,31 @@ export default {
       bg-image('bulletin')
       background-size 100% 100%
       background-repeat no-repeat
-    .bulletin-text
-      font-size 10px
-      vertical-align middle
-      margin 0 4px
+    .bulletin-box
       display inline-block
-      white-space: nowrap
-      // width: 340px;
-      // overflow: hidden;
-      // animation: 20s wordsLoop linear infinite normal
-    @keyframes wordsLoop 
-        0% 
-            transform: translateX(200px)
-            -webkit-transform: translateX(200px)
-        100% 
-            transform: translateX(-100%)
-            -webkit-transform: translateX(-100%) 
-    @-webkit-keyframes wordsLoop 
-        0% 
-            transform: translateX(200px)
-            -webkit-transform: translateX(200px)
-        100% 
-            transform: translateX(-100%)
-            -webkit-transform: translateX(-100%)
+      overflow auto
+      width 90%
+      .bulletin-text
+        font-size 10px
+        vertical-align middle
+        margin 0 4px
+        display inline-block
+        white-space: nowrap
+        animation: 25s wordsLoop linear infinite normal
+      @keyframes wordsLoop 
+          0% 
+              transform: translateX(200px)
+              -webkit-transform: translateX(200px)
+          100% 
+              transform: translateX(-100%)
+              -webkit-transform: translateX(-100%) 
+      @-webkit-keyframes wordsLoop 
+          0% 
+              transform: translateX(200px)
+              -webkit-transform: translateX(200px)
+          100% 
+              transform: translateX(-100%)
+              -webkit-transform: translateX(-100%)
     .icon-keyboard_arrow_right
       position absolute
       font-size 10px
