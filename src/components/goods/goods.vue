@@ -63,6 +63,7 @@ export default {
   },
   created() {
     axios.get('static/data.json').then((res) => {
+      console.log(res)
       this.goods = res.data.goods
       this.$nextTick(() => {
         this._initScroll(); // 初始化scroll

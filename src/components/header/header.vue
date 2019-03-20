@@ -185,13 +185,13 @@ export default {
     line-height 28px
     padding 0 22px 0 12px
     white-space nowrap
-    overflow hidden
-    text-overflow ellipsis
     background rgba(7,17,27,0.2)
+    margin: 0 auto
+    overflow: hidden
     .bulletin-title
       display inline-block
       vertical-align top
-      margin-top 8px
+      margin-top 10px
       width 22px
       height 12px
       bg-image('bulletin')
@@ -201,6 +201,25 @@ export default {
       font-size 10px
       vertical-align middle
       margin 0 4px
+      display inline-block
+      white-space: nowrap
+      // width: 340px;
+      // overflow: hidden;
+      // animation: 20s wordsLoop linear infinite normal
+    @keyframes wordsLoop 
+        0% 
+            transform: translateX(200px)
+            -webkit-transform: translateX(200px)
+        100% 
+            transform: translateX(-100%)
+            -webkit-transform: translateX(-100%) 
+    @-webkit-keyframes wordsLoop 
+        0% 
+            transform: translateX(200px)
+            -webkit-transform: translateX(200px)
+        100% 
+            transform: translateX(-100%)
+            -webkit-transform: translateX(-100%)
     .icon-keyboard_arrow_right
       position absolute
       font-size 10px
