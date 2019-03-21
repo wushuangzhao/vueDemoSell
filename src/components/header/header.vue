@@ -1,7 +1,7 @@
 <template lang="html">
 
 <div class="header">
-    <div class="content-wrapper">
+    <div class="content-wrapper" @click="showPics()">
         <div class="avatar">
           <img :src="seller.avatar" width="64" height="64" />
         </div>
@@ -20,7 +20,7 @@
                 </div>
             </div>
         </div>
-        <div class="support-count" v-if="seller.supports" @click="showDetails()">
+        <div class="support-count" v-if="seller.supports" @click.stop="showDetails()">
             <span class="count">{{seller.supports.length+'个'}}</span>
             <i class="icon-keyboard_arrow_right"></i>
         </div>
@@ -36,6 +36,18 @@
     <img :src="seller.avatar" width="100%" height="100%"/>
   </div>
   <transition name="fade">
+    <div v-if="picsShow" class="pics">
+      <div class="pics_wrap">
+        <div class="merchants">
+            <div v-for="pic in this.pics" class="pics_pic">
+              <img :src="pic"/>
+            </div>
+        </div>
+      </div>
+      <div class="pics-close">
+        <i class="icon-close" @click="hidePics()"></i>
+      </div>
+    </div>
     <div v-if="detailShow" class="detail">
       <div class="detail-wrapper clearfix">
           <div class="detail-main">
@@ -67,12 +79,16 @@
       </div>
     </div>
   </transition>
+  <!-- <transition name='fade'>
+    
+  </transition> -->
 </div>
 
 </template>
 
 <script>
 import star from 'components/star/star'
+import Axios from 'axios';
 
 export default {
   props: {
@@ -88,6 +104,8 @@ export default {
   },
   data() {
     return {
+      pics: [],
+      picsShow: false,
       detailShow: false
     }
   },
@@ -97,6 +115,17 @@ export default {
     },
     hideDetail() {
       this.detailShow = false;
+    },
+    showPics() {
+      this.picsShow = true;
+      Axios.get('static/data.json').then((res) => {
+        this.pics = res.data.seller.pics;
+        console.log(this.pics);
+        return this.pics;
+      })
+    },
+    hidePics() {
+      this.picsShow = false;
     }
   }
 }
@@ -238,12 +267,15 @@ export default {
     filter blur(10px)
     z-index -1
   .detail
+  .pics
     position fixed
     top 0
     left 0
     z-index 100
     width 100%
     height 100%
+    overflow-y scroll
+    overflow-x hidden
     background rgba(7,17,27,0.8)
     backdrop-filter blur(10px)
     .detail-wrapper
@@ -311,7 +343,18 @@ export default {
           font-weight 200
           color rgb(255,255,255)
           line-height 24px
-
+    .pics_wrap
+      .merchants
+        display float
+        text-align center
+        .pics_pic 
+          width 50%
+          float left 
+    .pics-close
+      text-align center
+      margin-top 50px
+      font-size 25px
+      clear both
     .detail-close
       position relative
       width 32px
