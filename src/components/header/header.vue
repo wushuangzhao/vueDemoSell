@@ -39,7 +39,7 @@
     <div v-if="picsShow" class="pics">
       <div class="pics_wrap">
         <div class="merchants">
-            <div v-for="pic in this.pics" class="pics_pic">
+            <div v-for="pic in pics" class="pics_pic">
               <img :src="pic"/>
             </div>
         </div>
@@ -120,8 +120,6 @@ export default {
       this.picsShow = true;
       Axios.get('static/data.json').then((res) => {
         this.pics = res.data.seller.pics;
-        console.log(this.pics);
-        return this.pics;
       })
     },
     hidePics() {
