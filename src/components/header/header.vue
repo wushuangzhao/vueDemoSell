@@ -361,8 +361,8 @@ export default {
       height 32px
       margin -64px auto 0 auto
       clear both
-      font-size 32px
-      color rgba(255,255,255,0.5)
+      font-size 25px
+      color rgba(255,255,255,1)
     &.fade-enter-active, &.fade-leave-active {
         transition: opacity .5s
     }
