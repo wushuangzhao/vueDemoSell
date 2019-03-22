@@ -37,13 +37,18 @@
   </div>
   <transition name="fade">
     <div v-if="picsShow" class="pics">
-      <div class="pics_wrap">
-        <div class="merchants">
-            <div v-for="pic in pics" class="pics_pic">
-              <img :src="pic"/>
+      <!-- <div class="pics_wrap"> -->
+        <!-- <div class="merchants" ref="picsWrapper">
+            <div ref="picList" class="pics_pic">
+              <img v-for="pic in pics"  :src="pic"/>
             </div>
+        </div> -->
+      <div class="img-wrapper" ref="picsWrapper">
+        <div ref="picList">
+          <img v-for="pic in pics" :src="pic" width="120" height="90">
         </div>
       </div>
+      <!-- </div> -->
       <div class="pics-close">
         <i class="icon-close" @click="hidePics()"></i>
       </div>
@@ -89,6 +94,8 @@
 <script>
 import star from 'components/star/star'
 import Axios from 'axios';
+import BScroll from 'better-scroll'
+import Vue from 'vue';
 
 export default {
   props: {
@@ -120,10 +127,25 @@ export default {
       this.picsShow = true;
       Axios.get('static/data.json').then((res) => {
         this.pics = res.data.seller.pics;
+        this.$nextTick(() => {
+          this._initPicScroll();
+        })
       })
     },
     hidePics() {
       this.picsShow = false;
+    },
+    _initPicScroll() {
+      if (this.picsScroll) {
+        return
+      }
+      const PIC_WIDTH = 120
+      const MARGIN = 10
+      let picLen = this.seller.pics.length
+      this.$refs.picList.style.width = PIC_WIDTH * picLen + MARGIN * (picLen - 1) + 'px'
+      this.picsScroll = new BScroll(this.$refs.picsWrapper, {
+        scrollX: true
+      })
     }
   }
 }
@@ -272,8 +294,8 @@ export default {
     z-index 100
     width 100%
     height 100%
-    overflow-y scroll
-    overflow-x hidden
+    white-space nowrap
+    overflow hidden
     background rgba(7,17,27,0.8)
     backdrop-filter blur(10px)
     .detail-wrapper
@@ -343,10 +365,11 @@ export default {
           line-height 24px
     .pics_wrap
       .merchants
-        display float
+        display flex
         text-align center
         .pics_pic 
           width 50%
+          margin 10px
           float left 
     .pics-close
       text-align center

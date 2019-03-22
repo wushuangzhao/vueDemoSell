@@ -25,6 +25,7 @@ export default {
   },
   methods: {
     addCart(event) {
+      // console.log(this.$root)
       console.log(event.target);
       if (!event._constructed) {
         return
